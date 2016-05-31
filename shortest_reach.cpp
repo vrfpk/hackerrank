@@ -9,7 +9,7 @@
 #include <map>
 using namespace std;
 
-// Simple Djiskra's algorithm with constant edge weights = 6 and without finding paths
+// Simple Dijkstra's algorithm with constant edge weights = 6 and without finding paths
 int main()
 {
     int T;
