@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <time.h>
-#include "algorithms.h"
+//#include "algorithms.h"
+#include "partition.h"
 
 #define FALSE 0u
 #define TRUE 1u
@@ -97,42 +98,4 @@ int find_max_partition_rec(int arr[], int n)
 	return 0;
 }
 
-int find_max_partition(int arr[], int n)
-{
-	int sum = 0;
-	int i, j, s;
-	int **dp;
-	for (i = 0; i < n; ++i)
-		sum += arr[i];
 
-	if (sum % 2 != 0)
-		sum -= 1;
-
-	dp = alloc2d(sum + 1, n + 1);
-	for (i = 0; i < n + 1; ++i)
-		dp[0][i] = TRUE;
-
-	for (i = 1; i < sum + 1; ++i)
-		dp[i][0] = FALSE;
-
-	for (s = 1; s <= sum; s++)
-		for (i = 1; i <= n; i++) {
-			dp[s][i] = dp[s][i - 1];
-			if (s >= arr[i - 1])
-				dp[s][i] = dp[s][i] || dp[s - arr[i - 1]][i - 1];
-		}
-
-	/*
-	for (s = 0; s < sum + 1; ++s) {
-	for (i = 0; i < n + 1; ++i)
-	printf("s: %2d %s ", s, (dp[s][i] == FALSE) ? "false" : "true ");
-	printf("\n");
-	}
-	*/
-
-	for (s = sum; s >= 2; s = s - 2)
-		if (dp[s][n] == TRUE && dp[s / 2][n] == TRUE)
-			return s / 2;
-
-	return 0;
-}

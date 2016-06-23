@@ -4,7 +4,7 @@ OBJS = main.o
 CC = gcc
 CFLAGS = -O2 -std=c11 -Wall
 CXX = g++
-CXXFLAGS = -O2 -std=c++11 -Wall
+CXXFLAGS = -O2 -std=c++03 -Wall
 LD = g++
 # gcc
 LDFLAGS =
