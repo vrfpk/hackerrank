@@ -8,14 +8,15 @@
 #define LEFT(i) (((i) << 1) + 1)
 #define RIGHT(i) (((i) << 1) + 2)
 
-void add_element(int x, int *heap, int *size)
+void add_element(int x, int *heap, /*int *size,*/ int size)
 {
-	int c, p;
-	c = (*size)++;
-	heap[c] = x;
-	while (c != 0 && heap[PARENT(c)] < heap[c]) {
-		SWAP(heap[PARENT(c)], heap[c]);
-		c = PARENT(c);
+	//int c;
+    //printf("size: %d, index: %d\n", *size, index);
+	//c = index; // (*size)++;
+	heap[size] = x;
+	while (size != 0 && heap[PARENT(size)] < heap[size]) {
+		SWAP(heap[PARENT(size)], heap[size]);
+		size = PARENT(size);
 	}
 }
 
@@ -62,36 +63,39 @@ void output_array(int *heap, int size)
 	printf("\n");
 }
 
-void remove_root(int *heap, int *size)
+void remove_root(int *heap, /*int *size,*/ int size)
 {
-	int current = 0, right, left;
-	int q;
-	--(*size);
+	int c = 0; /*right, left;*/
+	//int l;
+    
+    //printf("size: %d, index: %d\n", *size, index);
+	//--(*size);
+    //l = size - 1;
 
-	SWAP(heap[current], heap[*size]);
+	SWAP(heap[c], heap[size-1]);
 	//heap[*size] = -1;
 	while (1) {
-		right = RIGHT(current);
-		left = LEFT(current);
-		if (left >= *size) {
+		//right = RIGHT(c);
+		//left = LEFT(c);
+		if (LEFT(c) >= size-1) {
 			break;
-		} else if (right >= *size) {
-			if (heap[left] > heap[current]) 
-				SWAP(heap[left], heap[current]);
+		} else if (RIGHT(c) >= size-1) {
+			if (heap[LEFT(c)] > heap[c]) 
+				SWAP(heap[LEFT(c)], heap[c]);
 			break;
-		} else if (heap[left] > heap[right] && heap[left] > heap[current]) {
-			SWAP(heap[left], heap[current]);
-			current = left;
-		} else if (heap[right] >= heap[left] && heap[right] > heap[current]) {
-			SWAP(heap[right], heap[current]);
-			current = right;
+		} else if (heap[LEFT(c)] > heap[RIGHT(c)] && heap[LEFT(c)] > heap[c]) {
+			SWAP(heap[LEFT(c)], heap[c]);
+			c = LEFT(c);
+		} else if (heap[RIGHT(c)] >= heap[LEFT(c)] && heap[RIGHT(c)] > heap[c]) {
+			SWAP(heap[RIGHT(c)], heap[c]);
+			c = RIGHT(c);
 		} else {
 			break;
 		}
 	}
 }
 
-int heap_[15];
+int heap_[30] = { 0 };
 
 int main()
 {
@@ -103,13 +107,15 @@ int main()
 	for (i = 0; i < 15; ++i) A[i] = (rand() % 100);
 
 	for (i = 0; i < 15; ++i) {
-		add_element(A[i], heap_, &heap_size);
+		add_element(A[i], heap_, /*&heap_size,*/ i);
 	}
 
-	for (i = 0; i < 15; ++i) {
-		remove_root(heap_, &heap_size);
+    //printf("heap_size: %d\n", heap_size);
+    
+	for (i = 15; i > 0; --i) {
+		remove_root(heap_, /*&heap_size,*/ i);
 	}
-	output_array(heap_, 15);
+	output_array(heap_, 30);
 
 	return 0;
 }

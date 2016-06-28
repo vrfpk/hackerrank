@@ -5,5 +5,6 @@ int test_square_subsequences();
 int test_repair_roads();
 int test_repair_roads2();
 void test_max_partition();
+void create_test_max_partition();
 
 #endif // !MAIN_H

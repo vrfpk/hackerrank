@@ -7,9 +7,9 @@ OBJS = \
 	max_partition.o\
 
 CC = gcc
-CFLAGS = -O2 -Wall
+CFLAGS = -O2 -Wall -D DEBUG
 CXX = g++
-CXXFLAGS = -O2
+CXXFLAGS = -O2 -Wall
 LD = g++
 # gcc
 LDFLAGS =
